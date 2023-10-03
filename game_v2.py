@@ -15,12 +15,22 @@ def random_predict(number: int = 1) -> int:
         int: Число попыток
     """
     count = 0
+    nums_list = range(1, 101) # список значений, которые может принять число: по условию от 1 до 100
 
     while True:
         count += 1
-        predict_number = np.random.randint(1, 101)  # предполагаемое число
+        predict_number = np.random.choice(nums_list) # предполагаемое число случайно выбираем из списка возможных значений
+        
         if number == predict_number:
-            break  # выход из цикла если угадали
+            # выход из цикла если угадали
+            break  
+        elif number < predict_number:
+            # если загаданное число меньше предполагаемого, отрезаем от списка возможных значений все числа, которые больше предполагаемого
+            nums_list = nums_list[0:nums_list.index(predict_number)] 
+        else: 
+            # если загаданное число больше предполагаемого, отрезаем от списка возможных значений все числа, которые меньше предполагаемого
+            nums_list = nums_list[nums_list.index(predict_number)+1:]
+        
     return count
 
 
